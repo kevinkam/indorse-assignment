@@ -1,9 +1,14 @@
 import * as React from "react"
+import container, { ListProps } from "./container"
 
-class List extends React.Component {
+class List extends React.Component<ListProps> {
+  componentDidMount() {
+    this.props.getMovieList()
+  }
+
   render() {
     return <div />
   }
 }
 
-export default List
+export default container(List)
