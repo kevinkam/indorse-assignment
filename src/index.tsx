@@ -1,24 +1,26 @@
 import * as React from "react"
 import ReactDOM from "react-dom"
-import { Switch, Route, Router } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import loadable from "react-loadable"
-import createBrowserHistory from "history/createBrowserHistory"
-
-const history = createBrowserHistory()
+import { Provider } from "react-redux"
+import { ConnectedRouter } from "connected-react-router"
+import store, { history } from "./store"
 
 const List = loadable({
-  loader: () => import("./List"),
+  loader: () => import("./components/List"),
   loading: () => <div />
 })
 
 class App extends React.Component {
   render() {
     return (
-      <Router history={history}>
-        <Switch>
-          <Route path="/" component={List} />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route path="/" component={List} />
+          </Switch>
+        </ConnectedRouter>
+      </Provider>
     )
   }
 }
