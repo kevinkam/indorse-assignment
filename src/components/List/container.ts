@@ -1,5 +1,5 @@
 import * as React from "react"
-import { getList, MovieResult } from "../../actions/list"
+import { getList, MovieResult, searchMovies } from "../../actions/list"
 import { connect } from "react-redux"
 import { RootState } from "../../reducers"
 import { push } from "connected-react-router"
@@ -13,6 +13,7 @@ interface StateProps {
 }
 interface DispatchProps {
   getMovieList: (params?: any) => void
+  searchMovieList: (params?: any) => void
   goTo: (url: string) => void
 }
 
@@ -26,6 +27,9 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = dispatch => ({
   getMovieList: (params?: any) => {
     dispatch(getList(params))
+  },
+  searchMovieList: (params?: any) => {
+    dispatch(searchMovies(params))
   },
   goTo: (url: string) => {
     dispatch(push(url))

@@ -35,3 +35,10 @@ export const getList = (params?: any) => (dispatch: Dispatch) => {
     dispatch({ type: Actions.GET_LIST_SUCCESS, payload: response.data })
   })
 }
+
+export const searchMovies = (params?: any) => (dispatch: Dispatch) => {
+  dispatch({ type: Actions.GET_LIST_REQUEST })
+  ajax.get<GetListResponse>("/search/movie", { params }).then(response => {
+    dispatch({ type: Actions.GET_LIST_SUCCESS, payload: response.data })
+  })
+}

@@ -1,4 +1,5 @@
 import * as React from "react"
+import queryString from "query-string"
 import container, { ListProps } from "./container"
 import { Col, Input, Pagination, Row } from "antd"
 import Item from "./Item"
@@ -7,31 +8,59 @@ const InputSearch = Input.Search
 
 class List extends React.Component<ListProps> {
   componentDidMount() {
-    const { getMovieList, match } = this.props
-    getMovieList({ page: match.params.page || 1 })
-  }
-  componentDidUpdate(
-    prevProps: Readonly<ListProps>,
-    prevState: Readonly<{}>
-  ): void {
-    const { location, match } = this.props
-    if (prevProps.location.key !== location.key) {
-      this.props.getMovieList({
+    const { getMovieList, searchMovieList, match, location } = this.props
+    const query = queryString.parse(location.search)
+    if (query.query === undefined) {
+      getMovieList({ page: match.params.page || 1 })
+    } else {
+      searchMovieList({
+        ...query,
         page: match.params.page || 1
       })
     }
   }
+  componentDidUpdate(prevProps: Readonly<ListProps>, prevState: Readonly<{}>) {
+    const { location, match, searchMovieList, getMovieList } = this.props
+    if (prevProps.location.key !== location.key) {
+      const query = queryString.parse(location.search)
+      if (query.query === undefined) {
+        getMovieList({
+          page: match.params.page || 1
+        })
+      } else {
+        searchMovieList({
+          ...query,
+          page: match.params.page || 1
+        })
+      }
+    }
+  }
 
   onPaginateChange = (page: number) => {
-    this.props.goTo(`/p/${page}`)
+    const { location, goTo } = this.props
+    goTo(`/p/${page}${location.search}`)
+  }
+  onSearch = (value: string) => {
+    const { goTo } = this.props
+    if (value.trim() !== "") {
+      goTo(`/p/1?query=${value}`)
+    } else {
+      goTo("/p/1")
+    }
   }
   render() {
-    const { movies, total_results, match } = this.props
+    const { movies, total_results, match, location } = this.props
+    const query = queryString.parse(location.search)
     return (
       <>
         <Row type="flex" align="middle">
           <Col>
-            <InputSearch placeholder="Search movies..." />
+            <InputSearch
+              enterButton
+              placeholder="Search movies..."
+              onSearch={this.onSearch}
+              defaultValue={query.query}
+            />
           </Col>
           <Col>
             <Pagination
