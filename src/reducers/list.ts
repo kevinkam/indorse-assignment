@@ -1,7 +1,17 @@
-import { Actions, GetListResponse } from "../actions/list"
+import { Actions, GetListResponse, MovieResult } from "../actions/list"
 import { AnyAction } from "redux"
 
-export const INITIAL_VALUES = {
+export interface ListState {
+  movies: string[]
+  entities: {
+    [id: string]: MovieResult
+  }
+  isLoading: boolean
+  page: number
+  total_pages: number
+  total_results: number
+}
+export const INITIAL_VALUES: ListState = {
   movies: [],
   entities: {},
   isLoading: true,

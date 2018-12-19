@@ -3,7 +3,10 @@ import { connectRouter } from "connected-react-router"
 import { History } from "history"
 import * as list from "./list"
 
-export const initialState = {
+export interface RootState {
+  list: list.ListState
+}
+export const initialState: RootState = {
   list: list.INITIAL_VALUES
 }
 

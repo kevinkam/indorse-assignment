@@ -6,7 +6,7 @@ export enum Actions {
   GET_LIST_SUCCESS = "list/GET_LIST_SUCCESS"
 }
 
-interface MovieResult {
+export interface MovieResult {
   adult: boolean
   backdrop_path: string
   genre_ids: number[]
