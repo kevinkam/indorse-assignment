@@ -17,6 +17,7 @@ class App extends React.Component {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Switch>
+            <Route path="/p/:page" component={List} />
             <Route path="/" component={List} />
           </Switch>
         </ConnectedRouter>

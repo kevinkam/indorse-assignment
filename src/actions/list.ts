@@ -29,9 +29,9 @@ export interface GetListResponse {
   total_results: number
   results: MovieResult[]
 }
-export const getList = () => (dispatch: Dispatch) => {
+export const getList = (params?: any) => (dispatch: Dispatch) => {
   dispatch({ type: Actions.GET_LIST_REQUEST })
-  ajax.get<GetListResponse>("/discover/movie").then(response => {
+  ajax.get<GetListResponse>("/discover/movie", { params }).then(response => {
     dispatch({ type: Actions.GET_LIST_SUCCESS, payload: response.data })
   })
 }
