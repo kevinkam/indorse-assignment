@@ -1,10 +1,19 @@
-import { Actions, GetListResponse, MovieResult } from "../actions/list"
 import { AnyAction } from "redux"
+import { Actions, GetListResponse, MovieResult } from "../actions/list"
+import {
+  Actions as DetailsActions,
+  GetMovieCreditsResponse,
+  GetMovieDetailsResponse
+} from "../actions/details"
+
+export type ListEntities = MovieResult &
+  GetMovieDetailsResponse &
+  GetMovieCreditsResponse
 
 export interface ListState {
   movies: string[]
   entities: {
-    [id: string]: MovieResult
+    [id: string]: ListEntities
   }
   isLoading: boolean
   page: number
@@ -38,6 +47,14 @@ const list = (state = INITIAL_VALUES, actions: AnyAction) => {
             }),
           state.entities
         )
+      })
+    }
+    case DetailsActions.UPDATE_ENTITIES: {
+      const payload = actions.payload
+      return Object.assign({}, state, {
+        entities: Object.assign({}, state.entities, {
+          [payload.id]: Object.assign({}, state.entities[payload.id], payload)
+        })
       })
     }
   }

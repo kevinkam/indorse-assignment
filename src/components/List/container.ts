@@ -1,13 +1,14 @@
 import * as React from "react"
-import { getList, MovieResult, searchMovies } from "../../actions/list"
+import { getList, searchMovies } from "../../actions/list"
 import { connect } from "react-redux"
 import { RootState } from "../../reducers"
 import { push } from "connected-react-router"
 import { RouteComponentProps } from "react-router"
+import { ListEntities } from "../../reducers/list"
 
 interface OwnProps extends RouteComponentProps<{ page: string }> {}
 interface StateProps {
-  movies: MovieResult[]
+  movies: ListEntities[]
   total_pages: number
   total_results: number
 }
@@ -20,7 +21,7 @@ interface DispatchProps {
 export interface ListProps extends StateProps, DispatchProps, OwnProps {}
 
 const mapStateToProps = (state: RootState) => ({
-  movies: state.list.movies.map(id => state.list.entities[id]),
+  movies: state.list.movies.map(id => state.list.entities[id] as ListEntities),
   total_pages: state.list.total_pages,
   total_results: state.list.total_results
 })
