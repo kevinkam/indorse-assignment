@@ -1,15 +1,20 @@
 import * as React from "react"
-import { getList } from "../../actions/list"
+import { getList, MovieResult } from "../../actions/list"
 import { connect } from "react-redux"
+import { RootState } from "../../reducers"
 
-interface StateProps {}
+interface StateProps {
+  movies: MovieResult[]
+}
 interface DispatchProps {
   getMovieList: () => void
 }
 
 export interface ListProps extends StateProps, DispatchProps {}
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state: RootState) => ({
+  movies: state.list.movies.map(id => state.list.entities[id])
+})
 const mapDispatchToProps = dispatch => ({
   getMovieList: () => {
     dispatch(getList())

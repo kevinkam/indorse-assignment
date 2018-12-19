@@ -1,5 +1,7 @@
 import * as React from "react"
 import container, { ListProps } from "./container"
+import { Row } from "antd"
+import Item from "./Item"
 
 class List extends React.Component<ListProps> {
   componentDidMount() {
@@ -7,7 +9,14 @@ class List extends React.Component<ListProps> {
   }
 
   render() {
-    return <div />
+    const { movies } = this.props
+    return (
+      <Row type="flex" gutter={16}>
+        {movies.map(movie => (
+          <Item key={movie.id} movie={movie} />
+        ))}
+      </Row>
+    )
   }
 }
 
