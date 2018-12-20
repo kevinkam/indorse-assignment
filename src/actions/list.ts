@@ -29,7 +29,9 @@ export interface GetListResponse {
   total_results: number
   results: MovieResult[]
 }
-export const getList = (params?: any) => async (dispatch: Dispatch) => {
+export const getList = (params?: { page?: number }) => async (
+  dispatch: Dispatch
+) => {
   dispatch({ type: Actions.GET_LIST_REQUEST })
   const response = await ajax.get<GetListResponse>("/discover/movie", {
     params
@@ -37,7 +39,10 @@ export const getList = (params?: any) => async (dispatch: Dispatch) => {
   dispatch({ type: Actions.GET_LIST_SUCCESS, payload: response.data })
 }
 
-export const searchMovies = (params?: any) => async (dispatch: Dispatch) => {
+export const searchMovies = (params?: {
+  page?: number
+  query?: string
+}) => async (dispatch: Dispatch) => {
   dispatch({ type: Actions.GET_LIST_REQUEST })
   const response = await ajax.get<GetListResponse>("/search/movie", { params })
   dispatch({ type: Actions.GET_LIST_SUCCESS, payload: response.data })

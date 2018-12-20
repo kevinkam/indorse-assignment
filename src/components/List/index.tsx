@@ -11,12 +11,13 @@ class List extends React.Component<ListProps> {
   componentDidMount() {
     const { getMovieList, searchMovieList, match, location } = this.props
     const query = queryString.parse(location.search)
+    const page = Number(match.params.page || 1)
     if (query.query === undefined) {
-      getMovieList({ page: match.params.page || 1 })
+      getMovieList({ page })
     } else {
       searchMovieList({
-        ...query,
-        page: match.params.page || 1
+        page,
+        ...query
       })
     }
   }
@@ -24,14 +25,15 @@ class List extends React.Component<ListProps> {
     const { location, match, searchMovieList, getMovieList } = this.props
     if (prevProps.location.key !== location.key) {
       const query = queryString.parse(location.search)
+      const page = Number(match.params.page || 1)
       if (query.query === undefined) {
         getMovieList({
-          page: match.params.page || 1
+          page
         })
       } else {
         searchMovieList({
-          ...query,
-          page: match.params.page || 1
+          page,
+          ...query
         })
       }
     }

@@ -13,8 +13,8 @@ interface StateProps {
   total_results: number
 }
 interface DispatchProps {
-  getMovieList: (params?: any) => void
-  searchMovieList: (params?: any) => void
+  getMovieList: (params?: { page?: number }) => void
+  searchMovieList: (params?: { page?: number; query?: string }) => void
   goTo: (url: string) => void
 }
 
@@ -26,10 +26,10 @@ const mapStateToProps = (state: RootState) => ({
   total_results: state.list.total_results
 })
 const mapDispatchToProps = dispatch => ({
-  getMovieList: (params?: any) => {
+  getMovieList: (params?: { page?: number }) => {
     dispatch(getList(params))
   },
-  searchMovieList: (params?: any) => {
+  searchMovieList: (params?: { page?: number; query?: string }) => {
     dispatch(searchMovies(params))
   },
   goTo: (url: string) => {
