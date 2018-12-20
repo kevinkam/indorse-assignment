@@ -31,7 +31,7 @@ class Detail extends React.Component<DetailProps> {
           Cast:{" "}
           {movie.cast !== undefined &&
             movie.cast.map(item => (
-              <DetailCastLink key={item.id}>{item.name}</DetailCastLink>
+              <DetailCastLink key={item.id} to={`/cast/${item.id}`}>{item.name}</DetailCastLink>
             ))}
         </p>
       </Modal>

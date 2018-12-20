@@ -12,6 +12,11 @@ const List = loadable({
   loading: () => <div />
 })
 
+const Cast = loadable({
+  loader: () => import("./components/Cast"),
+  loading: () => <div />
+})
+
 class App extends React.Component {
   render() {
     return (
@@ -19,6 +24,7 @@ class App extends React.Component {
         <ConnectedRouter history={history}>
           <Switch>
             <Route path="/p/:page" component={List} />
+            <Route path="/cast/:id" component={Cast} />
             <Route path="/" component={List} />
           </Switch>
         </ConnectedRouter>

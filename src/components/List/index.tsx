@@ -3,6 +3,7 @@ import queryString from "query-string"
 import container, { ListProps } from "./container"
 import { Col, Input, Pagination, Row } from "antd"
 import Item from "./Item"
+import { ListWrapper } from "./styled"
 
 const InputSearch = Input.Search
 
@@ -52,7 +53,7 @@ class List extends React.Component<ListProps> {
     const { movies, total_results, match, location } = this.props
     const query = queryString.parse(location.search)
     return (
-      <>
+      <ListWrapper>
         <Row type="flex" align="middle">
           <Col>
             <InputSearch
@@ -77,7 +78,7 @@ class List extends React.Component<ListProps> {
             <Item key={movie.id} movie={movie} />
           ))}
         </Row>
-      </>
+      </ListWrapper>
     )
   }
 }

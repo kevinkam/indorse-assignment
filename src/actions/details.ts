@@ -63,7 +63,7 @@ export const getMovieDetails = (id: number) => async (dispatch: Dispatch) => {
   })
 }
 
-interface Cast {
+export interface Cast {
   cast_id: number
   character: string
   credit_id: string

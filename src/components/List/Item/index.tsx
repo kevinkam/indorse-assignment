@@ -3,6 +3,7 @@ import { Card, Col } from "antd"
 import { AntCard } from "./styled"
 import Detail from "./Detail"
 import { ListEntities } from "../../../reducers/list"
+import { IMG_PATH } from "../../../util/constant"
 
 const { Meta } = Card
 interface ItemProps {
@@ -33,7 +34,7 @@ class Item extends React.Component<ItemProps, ItemState> {
   render() {
     const { modal } = this.state
     const { movie } = this.props
-    const posterUrl = `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+    const posterUrl = `${IMG_PATH}${movie.poster_path}`
     return (
       <>
         <Col span={6}>
